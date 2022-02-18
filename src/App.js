@@ -1,3 +1,4 @@
+
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
 import StartPage from "./pages/StartPage";
@@ -10,6 +11,15 @@ function App() {
       <Route path="/mycard" render={(props) => <MyCardsPage />} />
       <Route path="/createcard" render={(props) => <AddNewCardPage />} />
     </Switch>
+
+import "./App.css";
+
+function App() {
+  return (
+    <div className="App">
+      <h1>Nu kör vi 😀</h1>
+    </div>
+
   );
 }
 
