@@ -4,3 +4,12 @@
   --mainIcon: #D99BFF; /* variabel för icons färg*/ 
   --mainForm: #C0C6C9; /* variabel för inputs background färg*/ 
 }
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: var(--primaryColor);
+  color: var(--mainText);
+}
