@@ -1,11 +1,17 @@
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
-
+import StartPage from "./pages/StartPage";
+import MyCardsPage from "./pages/MyCardsPage";
+import AddNewCardPage from "./pages/AddNewCardPage";
 function App() {
   return (
-    <div className="App">
-      <h1>Nu kör vi 😀</h1>
-    </div>
-  );
+    <Switch>
+      <Route exact path="/" render={(props) => <StartPage />} />
+      <Route path="/mycard" render={(props) => <MyCardsPage />} />
+      <Route path="/createcard" render={(props) => <AddNewCardPage />} />
+    </Switch>
+  )
+
 }
 
 export default App;
