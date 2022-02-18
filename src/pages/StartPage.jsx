@@ -8,13 +8,13 @@ const StartPage = () => {
   return (
     <>
     <section>
-      <p><GiWallet/> E-wallet</p>
+      <p><GiWallet className='wallet-icon'/> E-wallet</p>
       <header>
         <img src={Wallet} alt="image" />
       </header>
-      <h1>Easy way to manage your paymant</h1>
-      <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-      <BsFillArrowRightCircleFill/>
+      <h1>Easy way to manage your payment</h1>
+      <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad et reprehenderit ratione doloribus numquam incidunt amet, unde aut eaque quos odit inventore alias magnam. Corrupti assumenda amet laborum et ea!</h2>
+      <BsFillArrowRightCircleFill className='arrow-icon'/>
       </section>
       </>
   )

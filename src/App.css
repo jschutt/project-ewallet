@@ -3,6 +3,7 @@
   --mainText: #D8B0B0; /* variabel för text färg*/ 
   --mainIcon: #D99BFF; /* variabel för icons färg*/ 
   --mainForm: #C0C6C9; /* variabel för inputs background färg*/ 
+  --font-color-white: #fff;
 }
 
 * {
