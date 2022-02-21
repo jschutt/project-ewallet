@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Cards from "react-credit-cards";
+import '../styles/addNewCard.css';
 const AddNewCardPage = () => {
   //FIXME: we need to have a look together i can not figure out global states from the redux store
   // const {cardDetails} = useSelector(state => state.cards);
@@ -15,7 +16,8 @@ const AddNewCardPage = () => {
   const [cvc, setCvc] = useState("");
   const [focused, setFocused] = useState("");
   return (
-    <div>
+
+    <div> 
       <Cards
         number={number}
         name={name}

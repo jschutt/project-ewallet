@@ -1,22 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const CardSlice = createSlice({
+const cardSlice = createSlice({
   name: "cards",
   initialState: {
-    // define initial global states
-    cardDetails: [
+    cardsList: [
       {
-        number: "060766767006",
-        name: "ozzy",
-        expiry: "",
-        cvc: "",
-        focused: "",
-      },
+        cardNumber: 1111222233334444,
+        name: "Ann Andersson",
+        expiry: 10 / 20,
+        cvc: 123,
+        ifActive: true // dubbelkolla med dokumentacion
+      }
     ],
+    no: 1
   },
   reducers: {
-    //TODO: define actions
-  },
+    addCard: (state, action) => {
+      state.cardsList.push(action.payload);
+      state.no += 1;
+    }
+  }
 });
 
-export default CardSlice.reducer;
+export const { addCard } = cardSlice.actions;
+export default cardSlice.reducer;
