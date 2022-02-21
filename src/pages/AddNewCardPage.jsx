@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Cards from "react-credit-cards";
+import { getCards } from "../redux/CardSlice";
 import '../assets/createCardPage.css'
 import {BsFillArrowLeftCircleFill} from 'react-icons/bs';
 import {AiFillCheckCircle} from 'react-icons/ai';
 
 
 import { Link } from "react-router-dom";
-
 const AddNewCardPage = () => {
-  //FIXME: we need to have a look together i can not figure out global states from the redux store
-  // const {cardDetails} = useSelector(state => state.cards);
-  // const {number, name, cvc, focused, expiry} = cardDetails;
-  //console.log(cardDetails);
+  const dispatch = useDispatch();
+  const { state, status } = useSelector((state) => state.cards);
+  console.log(state);
+  
 
   // initially define states that will be used in the Cards component
   //TODO: this will be modified and put into redux later on!
@@ -21,17 +21,26 @@ const AddNewCardPage = () => {
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
   const [focused, setFocused] = useState("");
+
   return (
+    
     <div>
-      <Link to={{pathname:"/myCards"}}><BsFillArrowLeftCircleFill className="arrow-icon"/></Link>
+        <Link to={{pathname:"/myCards"}}><BsFillArrowLeftCircleFill className="arrow-icon"/></Link>
       <h1 className="centerElement mainText">Add new Card</h1>
+      <button
+        className="btn"
+        onClick={() => {
+          dispatch(getCards());
+        }}
+      >
+        Get Card Details
+      </button>
       <Cards
         number={number}
         name={name}
         expiry={expiry}
         cvc={cvc}
         focused={focused}
-        className = "marginTop"
       />
     
       <form className="flexBox">
