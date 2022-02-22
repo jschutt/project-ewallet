@@ -2,7 +2,8 @@
 import {GiWallet} from 'react-icons/gi';
 import{BsFillArrowRightCircleFill} from 'react-icons/bs';
 import Wallet from '../pictures/wallet.png';
-import '../styles/startPage.css'
+import '../styles/startPage.css';
+import { Link } from "react-router-dom";
 
 const StartPage = () => {
   return (
@@ -14,7 +15,7 @@ const StartPage = () => {
       </header>
       <h1>Easy way to manage your payment</h1>
       <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad et reprehenderit ratione doloribus numquam incidunt amet, unde aut eaque quos odit inventore alias magnam. Corrupti assumenda amet laborum et ea!</h2>
-      <BsFillArrowRightCircleFill className='arrow-icon'/>
+        <BsFillArrowRightCircleFill className='arrow-icon'/>
       </section>
       </>
   )
