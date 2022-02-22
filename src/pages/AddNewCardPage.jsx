@@ -5,10 +5,12 @@ import { getCards } from "../redux/CardSlice";
 
 const AddNewCardPage = () => {
   const dispatch = useDispatch();
-  const { state, status } = useSelector((state) => state.cards);
-  console.log(state);
-  
+  const { cardDetails, status } = useSelector((state) => state.cards);
+  let cardInfo = cardDetails.results;
+  console.log(cardInfo);
 
+
+  // -------------------------------------
   // initially define states that will be used in the Cards component
   //TODO: this will be modified and put into redux later on!
   const [number, setNumber] = useState("");
@@ -16,16 +18,16 @@ const AddNewCardPage = () => {
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
   const [focused, setFocused] = useState("");
+  // ------------------------------------------------
   return (
     <div>
-      <button
-        className="btn"
-        onClick={() => {
-          dispatch(getCards());
-        }}
-      >
+      {/* fetch the data with click event */}
+      <button className="btn" onClick={() => dispatch(getCards())}>
         Get Card Details
       </button>
+
+      <h3>{status} </h3>
+      {/* define the card component */}
       <Cards
         number={number}
         name={name}
