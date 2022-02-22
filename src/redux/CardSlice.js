@@ -1,25 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const cardSlice = createSlice({
+// ------ Fetch the Data from API
+
+export const getCards = createAsyncThunk("cards/getCards", async () => {
+  let resp = await fetch("https://randomuser.me/api/");
+  let json = await resp.json();
+  console.log(json);
+  return json;
+});
+const CardSlice = createSlice({
   name: "cards",
   initialState: {
-    cardsList: [
-      {
-        cardNumber: 1111222233334444,
-        name: "Ann Andersson",
-        expiry: 10 / 20,
-        cvc: 123,
-        ifActive: true // dubbelkolla med dokumentacion
-      }
-    ],
-    no: 1
+    cardDetails: [],
+    status: null,
   },
-  reducers: {
-    addCard: (state, action) => {
-      state.cardsList.push(action.payload);
-      state.no += 1;
-    }
-  }
+  extraReducers: {
+    [getCards.fulfilled]: (state, action) => {
+      state.cardDetails = action.payload;
+      state.status = null;
+      //console.log(state);
+    },
+    [getCards.pending]: (state) => {
+      state.status = "Fetching data... Please wait a second";
+    },
+    [getCards.rejected]: (state) => {
+      state.status = "Failed to fetch data";
+    },
+  },
 });
 
 export const { addCard } = cardSlice.actions;
