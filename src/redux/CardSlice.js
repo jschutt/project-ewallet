@@ -8,11 +8,31 @@ export const getCards = createAsyncThunk("cards/getCards", async () => {
   console.log(json);
   return json;
 });
+
+// ----------- create a slice
 const CardSlice = createSlice({
   name: "cards",
   initialState: {
-    cardDetails: [],
+    cardDetails: null,
     status: null,
+    cardNumber: "",
+    expiry: "",
+    cvc: "",
+    focused: "",
+  },
+  reducers: {
+    setNumber: (state, action) => {
+      state.cardNumber = action.payload;
+    },
+    setExpiry: (state, action) => {
+      state.expiry = action.payload;
+    },
+    setCvc: (state, action) => {
+      state.cvc = action.payload;
+    },
+    setFocused: (state, action) => {
+      state.focused = action.payload;
+    },
   },
   extraReducers: {
     [getCards.fulfilled]: (state, action) => {
@@ -28,6 +48,5 @@ const CardSlice = createSlice({
     },
   },
 });
-
-export const { addCard } = cardSlice.actions;
-export default cardSlice.reducer;
+export const { setNumber, setExpiry, setCvc, setFocused } = CardSlice.actions;
+export default CardSlice.reducer;
