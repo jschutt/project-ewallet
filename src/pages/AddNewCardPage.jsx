@@ -1,42 +1,44 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Cards from "react-credit-cards";
-import { getCards } from "../redux/CardSlice";
+import {
+  getCards,
+  setNumber,
+  setExpiry,
+  setCvc,
+  setFocused,
+} from "../redux/CardSlice";
+import "react-credit-cards/es/styles-compiled.css";
 import '../assets/createCardPage.css'
 import {BsFillArrowLeftCircleFill} from 'react-icons/bs';
 import {AiFillCheckCircle} from 'react-icons/ai';
-
-
 import { Link } from "react-router-dom";
+
 const AddNewCardPage = () => {
   const dispatch = useDispatch();
-  const { state, status } = useSelector((state) => state.cards);
-  console.log(state);
-  
+  const { cardDetails, status } = useSelector((state) => state.cards);
+  const { cardNumber, expiry, cvc, focused } = useSelector(
+    (state) => state.cards
+  );
 
-  // initially define states that will be used in the Cards component
-  //TODO: this will be modified and put into redux later on!
-  const [number, setNumber] = useState("");
+  //console.log(cardDetails.results[0].name);
+  //FIXME:
   const [name, setName] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [focused, setFocused] = useState("");
 
   return (
     
     <div>
-        <Link to={{pathname:"/myCards"}}><BsFillArrowLeftCircleFill className="arrow-icon"/></Link>
+      <Link to={{pathname:"/myCards"}}><BsFillArrowLeftCircleFill className="arrow-icon"/></Link>
       <h1 className="centerElement mainText">Add new Card</h1>
-      <button
-        className="btn"
-        onClick={() => {
-          dispatch(getCards());
-        }}
-      >
+      {/* fetch the data with click event */}
+      <button className="btn" onClick={() => dispatch(getCards())}>
         Get Card Details
       </button>
+
+      <h3>{status} </h3>
+      {/* define the card component */}
       <Cards
-        number={number}
+        number={cardNumber}
         name={name}
         expiry={expiry}
         cvc={cvc}
@@ -48,9 +50,9 @@ const AddNewCardPage = () => {
           type="number"
           name="number"
           id="cardNumber"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
+          value={cardNumber}
+          onChange={(e) => dispatch(setNumber(e.target.value))}
+          onFocus={(e) => dispatch(setFocused(e.target.name))}
           placeholder="Card number"
           required
           className = "marginTop flexBasis formBackground"
@@ -64,7 +66,7 @@ const AddNewCardPage = () => {
           placeholder="Cardholder's name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
+          onFocus={(e) => dispatch(setFocused(e.target.name))}
           required
           className = "marginTop formBackground"
         />
@@ -72,8 +74,8 @@ const AddNewCardPage = () => {
           type="number"
           name="expiry"
           value={expiry}
-          onChange={(e) => setExpiry(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
+          onChange={(e) => dispatch(setExpiry(e.target.value))}
+          onFocus={(e) => dispatch(setFocused(e.target.name))}
           id="expirationDate"
           placeholder="MM/YY"
           required
@@ -83,8 +85,8 @@ const AddNewCardPage = () => {
           type="number"
           name="cvc"
           value={cvc}
-          onChange={(e) => setCvc(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
+          onChange={(e) => dispatch(setCvc(e.target.value))}
+          onFocus={(e) => dispatch(setFocused(e.target.name))}
           id="cvc"
           placeholder="CVC"
           className = "marginTop formBackground"
