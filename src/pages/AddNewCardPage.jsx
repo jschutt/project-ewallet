@@ -1,110 +1,88 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Cards from "react-credit-cards";
-import {
-  getCards,
-  setNumber,
-  setExpiry,
-  setCvc,
-  setFocused,
-} from "../redux/CardSlice";
-import "react-credit-cards/es/styles-compiled.css";
-import '../assets/createCardPage.css'
-import {BsFillArrowLeftCircleFill} from 'react-icons/bs';
-import {AiFillCheckCircle} from 'react-icons/ai';
-import { Link } from "react-router-dom";
+import { randomUser } from "../redux/CardSlice";
+
+const cardData = {
+  cardName: "",
+  cardNumber: "",
+  cardMonth: "",
+  cardYear: "",
+  ccv: "",
+  bankName: ""
+};
 
 const AddNewCardPage = () => {
+  const card = useSelector((state) => state.activeCard);
   const dispatch = useDispatch();
-  const { cardDetails, status } = useSelector((state) => state.cards);
-  const { cardNumber, expiry, cvc, focused } = useSelector(
-    (state) => state.cards
-  );
+  const [values, setValues] = useState(cardData);
+  console.log(card);
 
-  //console.log(cardDetails.results[0].name);
-  //FIXME:
-  const [name, setName] = useState("");
+  const handleOnChange = (e) => {
+    const nextCard = {
+      ...values,
+      [e.target.name]: e.target.value
+    };
+    setValues(nextCard);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (card.cardData.length <= 3) {
+      dispatch(addCard(values));
+      setValues(cardData);
+      console.log(card.cardData);
+    } else {
+      alert("Max limit");
+    }
+  };
 
   return (
-    
     <div>
-      <Link to={{pathname:"/myCards"}}><BsFillArrowLeftCircleFill className="arrow-icon"/></Link>
-      <h1 className="centerElement mainText">Add new Card</h1>
-      {/* fetch the data with click event */}
-      <button className="btn" onClick={() => dispatch(getCards())}>
-        Get Card Details
-      </button>
-
-      <h3>{status} </h3>
-      {/* define the card component */}
-      <Cards
-        number={cardNumber}
-        name={name}
-        expiry={expiry}
-        cvc={cvc}
-        focused={focused}
-      />
-    
-      <form className="flexBox">
-        <input
-          type="number"
-          name="number"
-          id="cardNumber"
-          value={cardNumber}
-          onChange={(e) => dispatch(setNumber(e.target.value))}
-          onFocus={(e) => dispatch(setFocused(e.target.name))}
-          placeholder="Card number"
-          required
-          className = "marginTop flexBasis formBackground"
-        
-         
-        />
-        <input
+      <form onSubmit={handleSubmit}>
+        <label>Number:
+          <input
+            type="number"
+            name="number"
+            id="cardNumber"
+            maxLength="16"
+            value={cardNumber}
+            onChange={handleOnChange}
+          /> </label>
+        <label>Cardholders Name:
+          <input
           type="text"
           id="cardholder"
           name="name"
-          placeholder="Cardholder's name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onFocus={(e) => dispatch(setFocused(e.target.name))}
-          required
-          className = "marginTop formBackground"
-        />
-        <input
+          value={cardName}
+          onChange={handleOnChange}
+        /></label>
+        <label>Expiration date:
+          <input
           type="number"
           name="expiry"
-          value={expiry}
-          onChange={(e) => dispatch(setExpiry(e.target.value))}
-          onFocus={(e) => dispatch(setFocused(e.target.name))}
+          value={cardMonth/cardYear}
+          onChange={handleOnChange}
           id="expirationDate"
           placeholder="MM/YY"
-          required
-          className = "marginTop flexBasis formBackground"
-        />
+        /></label>
+        <label>CCV:
         <input
           type="number"
-          name="cvc"
-          value={cvc}
-          onChange={(e) => dispatch(setCvc(e.target.value))}
-          onFocus={(e) => dispatch(setFocused(e.target.name))}
+          name="ccv"
+          maxLength="3"
+          value={ccv}
+          onChange={handleOnChange}
           id="cvc"
-          placeholder="CVC"
-          className = "marginTop formBackground"
-          
-        />
-        <select defaultValue="" name="cardOptions" id="cardOptions" required className = "marginTop flexBasis formBackground">
+        /></label>
+        <select defaultValue="" name="cardOptions" id="cardOptions">
           <option value="" disabled>
-            Choose card manufacturer
+            Card
           </option>
           <option value="visa">VISA</option>
           <option value="mastercard">MasterCard</option>
         </select>
       </form>
-      <div className="centerElement marginTop">
-        <Link to={{pathname:"/myCards"}}>
-        <i><AiFillCheckCircle className="done-icon"/> </i>
-        </Link>
-      </div>
+      <button>Add Card</button>
     </div>
   );
 };
