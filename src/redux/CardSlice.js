@@ -6,7 +6,8 @@ export const randomUser = createAsyncThunk("card/randomUser", async () => {
     .then((data) => data.result[0]);
 });
 
-const cardSlice = createSlice({
+// ----------- create a slice
+const CardSlice = createSlice({
   name: "cards",
   initialState: {
     activeCard: {
@@ -23,9 +24,10 @@ const cardSlice = createSlice({
     status: null
   },
   reducers: {
-    addNewCard: (state, action) => {
-      state.activeCard = state.activeCard.concat(action.payload);
-    }
+    reducers: {
+      addCard: (state, action) => {
+        state.activeCard = state.activeCard.concat(action.payload);
+      }
   },
   extraReducers: {
     [randomUser.pending]: (state, action) => {
@@ -45,7 +47,7 @@ const cardSlice = createSlice({
       console.log(state.status);
     }
   }
+}
 });
-console.log(cardSlice);
-export default cardSlice.reducer;
-
+export const { addCard } = CardSlice.actions;
+export default CardSlice.reducer;

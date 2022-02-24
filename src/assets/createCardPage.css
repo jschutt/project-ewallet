@@ -1,0 +1,30 @@
+.marginTop {
+  margin-top: 1rem;
+}
+.centerElement {
+  text-align: center;
+}
+.flexBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexBasis {
+  flex-basis: 100%;
+}
+
+body {
+  background-color: var(--primaryColor);
+}
+.mainText {
+  color: var(--mainText);
+}
+.formBackground {
+  background: var(--mainForm);
+}
+.done-icon {
+  font-size: 4.5rem;
+  margin-top: 1.5rem;
+  color: var(--mainIcon);
+  background-color: var(--primaryColor);
+}

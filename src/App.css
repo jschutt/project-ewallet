@@ -1,16 +1,12 @@
-:root{
-  --primaryColor: #202535; /* variabel för background färg*/ 
-  --mainText: #D8B0B0; /* variabel för text färg*/ 
-  --mainIcon: #D99BFF; /* variabel för icons färg*/ 
-  --mainForm: #C0C6C9; /* variabel för inputs background färg*/ 
+:root {
+  --primaryColor: #202535; /* variabel för background färg*/
+  --mainText: #d8b0b0; /* variabel för text färg*/
+  --mainIcon: #d99bff; /* variabel för icons färg*/
+  --mainForm: #c0c6c9; /* variabel för inputs background färg*/
   --font-color-white: #fff;
 }
 
-* {
-  margin: 0;
-  box-sizing: border-box;
-}
-body{
+body {
   background-color: var(--primaryColor);
   color: var(--mainText);
 }

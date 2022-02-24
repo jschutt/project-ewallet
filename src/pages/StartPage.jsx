@@ -15,7 +15,12 @@ const StartPage = () => {
       </header>
       <h1>Easy way to manage your payment</h1>
       <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad et reprehenderit ratione doloribus numquam incidunt amet, unde aut eaque quos odit inventore alias magnam. Corrupti assumenda amet laborum et ea!</h2>
-        <BsFillArrowRightCircleFill className='arrow-icon'/>
+    <Link to={
+      {pathname:"/mycards"}
+      }
+      >  
+    <BsFillArrowRightCircleFill className='arrow-icon'/> 
+    </Link>
       </section>
       </>
   )

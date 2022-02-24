@@ -7,11 +7,10 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" render={(props) => <StartPage />} />
-      <Route path="/mycard" render={(props) => <MyCardsPage />} />
+      <Route path="/mycards" render={(props) => <MyCardsPage />} />
       <Route path="/createcard" render={(props) => <AddNewCardPage />} />
     </Switch>
-  )
-
+  );
 }
 
 export default App;

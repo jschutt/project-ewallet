@@ -1,80 +1,80 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Cards from "react-credit-cards";
-import { getCards } from "../redux/CardSlice";
+import { randomUser } from "../redux/CardSlice";
+
+const cardData = {
+  cardName: "",
+  cardNumber: "",
+  cardMonth: "",
+  cardYear: "",
+  ccv: "",
+  bankName: ""
+};
 
 const AddNewCardPage = () => {
+  const card = useSelector((state) => state.activeCard);
   const dispatch = useDispatch();
-  const { state, status } = useSelector((state) => state.cards);
-  console.log(state);
-  
+  const [values, setValues] = useState(cardData);
+  console.log(card);
 
-  // initially define states that will be used in the Cards component
-  //TODO: this will be modified and put into redux later on!
-  const [number, setNumber] = useState("");
-  const [name, setName] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [focused, setFocused] = useState("");
+  const handleOnChange = (e) => {
+    const nextCard = {
+      ...values,
+      [e.target.name]: e.target.value
+    };
+    setValues(nextCard);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (card.cardData.length <= 3) {
+      dispatch(addCard(values));
+      setValues(cardData);
+      console.log(card.cardData);
+    } else {
+      alert("Max limit");
+    }
+  };
+
   return (
     <div>
-      <button
-        className="btn"
-        onClick={() => {
-          dispatch(getCards());
-        }}
-      >
-        Get Card Details
-      </button>
-      <Cards
-        number={number}
-        name={name}
-        expiry={expiry}
-        cvc={cvc}
-        focused={focused}
-      />
-      <form>
-        <input
-          type="number"
-          name="number"
-          id="cardNumber"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
-          placeholder="Card number"
-          required
-        />
-        <input
+      <form onSubmit={handleSubmit}>
+        <label>Number:
+          <input
+            type="number"
+            name="number"
+            id="cardNumber"
+            maxLength="16"
+            value={cardNumber}
+            onChange={handleOnChange}
+          /> </label>
+        <label>Cardholders Name:
+          <input
           type="text"
           id="cardholder"
           name="name"
-          placeholder="Cardholder's name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
-          required
-        />
-        <input
+          value={cardName}
+          onChange={handleOnChange}
+        /></label>
+        <label>Expiration date:
+          <input
           type="number"
           name="expiry"
-          value={expiry}
-          onChange={(e) => setExpiry(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
+          value={cardMonth/cardYear}
+          onChange={handleOnChange}
           id="expirationDate"
           placeholder="MM/YY"
-          required
-        />
+        /></label>
+        <label>CCV:
         <input
           type="number"
-          name="cvc"
-          value={cvc}
-          onChange={(e) => setCvc(e.target.value)}
-          onFocus={(e) => setFocused(e.target.name)}
+          name="ccv"
+          maxLength="3"
+          value={ccv}
+          onChange={handleOnChange}
           id="cvc"
-          placeholder="CVC"
-          required
-        />
-        <select defaultValue="" name="cardOptions" id="cardOptions" required>
+        /></label>
+        <select defaultValue="" name="cardOptions" id="cardOptions">
           <option value="" disabled>
             Card
           </option>
