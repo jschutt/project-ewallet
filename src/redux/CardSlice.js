@@ -1,33 +1,51 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// ------ Fetch the Data from API
-
-export const getCards = createAsyncThunk("cards/getCards", async () => {
-  let resp = await fetch("https://randomuser.me/api/");
-  let json = await resp.json();
-  console.log(json);
-  return json;
+export const randomUser = createAsyncThunk("card/randomUser", async () => {
+  return fetch(`https://randomuser.me/api/`)
+    .then((response) => response.json())
+    .then((data) => data.result[0]);
 });
-const CardSlice = createSlice({
+
+const cardSlice = createSlice({
   name: "cards",
   initialState: {
-    cardDetails: [],
-    status: null,
+    activeCard: {
+      cardName: "Ann Andersson",
+      cardnNumber: "111 222 3333 4444",
+      cardMonth: "12",
+      cardYear: "22",
+      cvc: "567",
+      type: "VISA",
+      active: true
+    },
+    cardsList: [],
+    data: null,
+    status: null
+  },
+  reducers: {
+    addNewCard: (state, action) => {
+      state.activeCard = state.activeCard.concat(action.payload);
+    }
   },
   extraReducers: {
-    [getCards.fulfilled]: (state, action) => {
-      state.cardDetails = action.payload;
-      state.status = null;
-      //console.log(state);
+    [randomUser.pending]: (state, action) => {
+      state.status = "Loading";
+      console.log(state.status);
     },
-    [getCards.pending]: (state) => {
-      state.status = "Fetching data... Please wait a second";
+    [randomUser.fulfilled]: (state, action) => {
+      state.status = "Success!";
+      const { first, last } = action.payload.name;
+      let wholeName = { first } + { last };
+      for (let i = 0; i < state.activeCard.length; i++) {
+        state.activeCard[i].cardName = wholeName.toUpperCase();
+      }
     },
-    [getCards.rejected]: (state) => {
-      state.status = "Failed to fetch data";
-    },
-  },
+    [randomUser.rejected]: (state, action) => {
+      state.status = "Failed!Try Again...";
+      console.log(state.status);
+    }
+  }
 });
-
-export const { addCard } = cardSlice.actions;
+console.log(cardSlice);
 export default cardSlice.reducer;
+
