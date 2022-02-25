@@ -1,3 +1,7 @@
+* {
+  margin-top: 1.5rem;
+}
+
 .marginTop {
   margin-top: 1rem;
 }
@@ -22,9 +26,8 @@ body {
 .formBackground {
   background: var(--mainForm);
 }
-.done-icon {
+.plus-icon {
+  color: var(--mainIcon);
   font-size: 4.5rem;
   margin-top: 1.5rem;
-  color: var(--mainIcon);
-  background-color: var(--primaryColor);
 }
