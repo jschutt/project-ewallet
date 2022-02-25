@@ -26,9 +26,7 @@ const MyCardsPage = () => {
 
   return (
     <div>
-      <Link to={{ pathname: "/" }}>
-        <BsFillArrowLeftCircleFill className="arrow-icon" />
-      </Link>
+      <Link to={{ pathname: "/" }}></Link>
 
       <Card
         name={cardHolderName}
@@ -37,9 +35,12 @@ const MyCardsPage = () => {
         cvc={cvc}
       />
       <Link to={`/createcard`}>
-        <button>Add new card<AiOutlinePlusCircle/></button>
+        <button>
+          Add new card
+          <AiOutlinePlusCircle />
+        </button>
       </Link>
-      <AllCards/>
+      <AllCards />
     </div>
   );
 };

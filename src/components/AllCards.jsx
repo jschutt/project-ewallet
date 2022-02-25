@@ -14,7 +14,6 @@ const AllCards = () => {
     <div>
       <h1>All my cards</h1>
       {cards.length > 0 &&
-        cards.length < 4 &&
         cards.map(({ cardNumber, cardHolderName, expiry, cvc }, i) => (
           <Card
             key={i}
