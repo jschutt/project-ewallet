@@ -112,4 +112,5 @@ const AddNewCardPage = () => {
   );
 };
 
+
 export default AddNewCardPage;

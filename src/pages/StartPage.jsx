@@ -2,7 +2,7 @@
 import {GiWallet} from 'react-icons/gi';
 import{BsFillArrowRightCircleFill} from 'react-icons/bs';
 import Wallet from '../pictures/wallet.png';
-import '../styles/startPage.css';
+import '../assets/styles/startPage.css'
 import { Link } from "react-router-dom";
 
 const StartPage = () => {
