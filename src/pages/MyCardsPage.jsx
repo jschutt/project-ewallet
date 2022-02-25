@@ -3,7 +3,7 @@ import Card from "../components/Card";
 import "react-credit-cards/es/styles-compiled.css";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import "../assets/myCardsPage.css";
+
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
