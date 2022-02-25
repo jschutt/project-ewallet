@@ -1,53 +1,52 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const randomUser = createAsyncThunk("card/randomUser", async () => {
-  return fetch(`https://randomuser.me/api/`)
-    .then((response) => response.json())
-    .then((data) => data.result[0]);
-});
+export const getRandomUser = createAsyncThunk(
+  "cards/getRandomUser",
+  async () => {
+    let response = await fetch("https://randomuser.me/api/");
+    let data = await response.json();
+    console.log(data);
+    return data.results[0];
+  }
+);
 
-// ----------- create a slice
-const CardSlice = createSlice({
+const cardSlice = createSlice({
   name: "cards",
   initialState: {
     activeCard: {
-      cardName: "Ann Andersson",
-      cardnNumber: "111 222 3333 4444",
-      cardMonth: "12",
-      cardYear: "22",
-      cvc: "567",
+      cardHolderName: "Anna Peterson",
+      cardNumber: "1234123412341234",
+      expiry: "1122",
+      cvc: "212",
       type: "VISA",
-      active: true
+      active: true,
     },
-    cardsList: [],
+    cards: [],
     data: null,
-    status: null
+    status: null,
   },
   reducers: {
-    reducers: {
-      addCard: (state, action) => {
-        state.activeCard = state.activeCard.concat(action.payload);
-      }
+    // definera actions
+    addCard: (state, action) => {
+      state.cards = state.cards.concat(action.payload);
+    },
+    updateCard: (state, { payload }) => {
+      state.cards = payload;
+    },
   },
   extraReducers: {
-    [randomUser.pending]: (state, action) => {
-      state.status = "Loading";
+    [getRandomUser.pending]: ({ status }) => {
+      status = "Loading...";
+    },
+    [getRandomUser.fulfilled]: (state, action) => {
+      state.activeCard.cardHolderName = `${action.payload.name.first} ${action.payload.name.last}`;
+      state.status = "Data has fetched successfully!";
       console.log(state.status);
     },
-    [randomUser.fulfilled]: (state, action) => {
-      state.status = "Success!";
-      const { first, last } = action.payload.name;
-      let wholeName = { first } + { last };
-      for (let i = 0; i < state.activeCard.length; i++) {
-        state.activeCard[i].cardName = wholeName.toUpperCase();
-      }
+    [getRandomUser.rejected]: ({ state }) => {
+      state = "fetched is failed";
     },
-    [randomUser.rejected]: (state, action) => {
-      state.status = "Failed!Try Again...";
-      console.log(state.status);
-    }
-  }
-}
+  },
 });
-export const { addCard } = CardSlice.actions;
-export default CardSlice.reducer;
+export const { addCard, updateCard } = cardSlice.actions;
+export default cardSlice.reducer;
