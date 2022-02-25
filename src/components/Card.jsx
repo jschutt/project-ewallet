@@ -1,4 +1,4 @@
-import '../styles/cardStyle.css';
+
 import { IoIosAddCircle } from "react-icons/io";
 
 const Card = () => {

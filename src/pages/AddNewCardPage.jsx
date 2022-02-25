@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { randomUser } from "../redux/CardSlice";
+import { randomUser, addCard } from "../redux/CardSlice";
+import "../assets/styles/createCardPage.css"
+import {AiFillCheckCircle} from 'react-icons/ai'
+import { Link } from "react-router-dom";
 
 const cardData = {
   cardName: "",
   cardNumber: "",
   cardMonth: "",
   cardYear: "",
-  ccv: "",
-  bankName: ""
+  ccv: ""
 };
 
 const AddNewCardPage = () => {
@@ -37,54 +39,65 @@ const AddNewCardPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>Number:
-          <input
-            type="number"
-            name="number"
-            id="cardNumber"
-            maxLength="16"
-            value={cardNumber}
-            onChange={handleOnChange}
-          /> </label>
-        <label>Cardholders Name:
-          <input
+    <div >
+      <h1 className="centerElement mainText">Add new card</h1>
+      <form onSubmit={handleSubmit} className="flexBox">
+        <input
+          type="number"
+          name="number"
+          id="cardNumber"
+          maxLength='16'
+          value=""
+          onChange={handleOnChange}
+          value={cardData.cardNumber}
+          placeholder="Card number"
+          className="formBackground flexBasis"
+          /> 
+        <input
           type="text"
           id="cardholder"
           name="name"
-          value={cardName}
+          value={cardData.cardName}
           onChange={handleOnChange}
-        /></label>
-        <label>Expiration date:
-          <input
+          placeholder="Card name"
+          className="formBackground flexBasis"
+        />
+        <input
           type="number"
           name="expiry"
-          value={cardMonth/cardYear}
+           value={cardData.cardMonth/cardData.cardYear}
           onChange={handleOnChange}
           id="expirationDate"
           placeholder="MM/YY"
-        /></label>
-        <label>CCV:
+          className="formBackground flexBasisFifty"
+        />
         <input
           type="number"
           name="ccv"
           maxLength="3"
-          value={ccv}
+          value={cardData.ccv}
           onChange={handleOnChange}
           id="cvc"
-        /></label>
-        <select defaultValue="" name="cardOptions" id="cardOptions">
-          <option value="" disabled>
-            Card
-          </option>
-          <option value="visa">VISA</option>
-          <option value="mastercard">MasterCard</option>
-        </select>
+          placeholder="CVC"
+          className="formBackground"
+        />
+     
+        <div className="flexBasis">
+         <select defaultValue="" name="cardOptions" id="cardOptions" className="formBackground">
+            <option disabled value="">Select card manufacturer</option>
+            <option value="visa">VISA</option>
+            <option value="mastercard">MasterCard</option>
+         </select>
+        </div>
+      <div className>
+      <Link to={{pathname: "/mycards"}}>
+        <i><AiFillCheckCircle className="done-icon"/> </i>
+        </Link>
+      </div>
       </form>
-      <button>Add Card</button>
     </div>
   );
 };
+
 
 export default AddNewCardPage;
