@@ -20,6 +20,7 @@ const cardSlice = createSlice({
       cvc: "212",
       type: "VISA",
       active: true,
+      focus:''
     },
     cards: [],
     data: null,
@@ -33,6 +34,9 @@ const cardSlice = createSlice({
     updateCard: (state, { payload }) => {
       state.cards = payload;
     },
+    setFocus:(state, action) => {
+      state.focus=action.payload;
+    }
   },
   extraReducers: {
     [getRandomUser.pending]: ({ status }) => {
@@ -48,5 +52,5 @@ const cardSlice = createSlice({
     },
   },
 });
-export const { addCard, updateCard } = cardSlice.actions;
+export const { addCard, updateCard, setFocus } = cardSlice.actions;
 export default cardSlice.reducer;

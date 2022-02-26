@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import Card from "../components/Card";
+import Cards from "react-credit-cards";
 import { addCard } from "../redux/CardSlice";
 import "react-credit-cards/es/styles-compiled.css";
+import { AiOutlineCheck } from "react-icons/ai";
 const AddNewCardPage = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
+  const [focus, setFocus] = useState("");
   const [active, setActive] = useState(false);
+
   let dispatch = useDispatch();
 
   const handleNewCard = () => {
@@ -21,6 +24,7 @@ const AddNewCardPage = () => {
         cvc: cvc,
         type: "VISA",
         active: false,
+        focus: focus,
       })
     );
   };
@@ -46,71 +50,82 @@ const AddNewCardPage = () => {
 
   return (
     <div>
-     
-      <Card name={name} number={number} expiry={expiry} cvc={cvc} />
+      <Cards
+        name={name}
+        number={number}
+        expiry={expiry}
+        cvc={cvc}
+        focused={focus}
+      />
       <form>
-        <label htmlFor="cardNumber">
-          Number:
-          <input
-            type="number"
-            name="number"
-            id="cardNumber"
-            maxLength="16"
-            onChange={(e) => {
-              setNumber(e.target.value);
-            }}
-          />{" "}
-        </label>
-        <label htmlFor="cardholder">
-          Cardholders Name:
-          <input
-            type="text"
-            id="cardholder"
-            name="name"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-        </label>
-        <label htmlFor="expirationDate">
-          Expiration date:
-          <input
-            type="number"
-            name="expiry"
-            onChange={(e) => {
-              setExpiry(e.target.value);
-            }}
-            id="expirationDate"
-            placeholder="MM/YY"
-          />
-        </label>
-        <label htmlFor="cvc">
-          CCV:
-          <input
-            type="number"
-            name="ccv"
-            maxLength="3"
-            onChange={(e) => {
-              setCvc(e.target.value);
-            }}
-            id="cvc"
-          />
-        </label>
-        <select defaultValue="" name="cardOptions" id="cardOptions">
-          <option value="" disabled>
-            Card
-          </option>
-          <option value="visa">VISA</option>
-          <option value="mastercard">MasterCard</option>
-        </select>
+        <div>
+          <label htmlFor="cardNumber">
+            Number:
+            <input
+              type="number"
+              name="number"
+              id="cardNumber"
+              maxLength="16"
+              onChange={(e) => {
+                setNumber(e.target.value);
+              }}
+              value={number}
+              onFocus={(e) => setFocus(e.target.name)}
+            />{" "}
+          </label>
+
+          <label htmlFor="cardholder">
+            Cardholders Name:
+            <input
+              type="text"
+              id="cardholder"
+              name="name"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+              value={name}
+              onFocus={(e) => setFocus(e.target.name)}
+            />
+          </label>
+
+          <label htmlFor="expirationDate">
+            Expiration date:
+            <input
+              type="number"
+              name="expiry"
+              onChange={(e) => {
+                setExpiry(e.target.value);
+              }}
+              value={expiry}
+              onFocus={(e) => setFocus(e.target.name)}
+              id="expirationDate"
+              placeholder="MM/YY"
+            />
+          </label>
+
+          <label htmlFor="cvc">
+            CCV:
+            <input
+              type="number"
+              name="cvc"
+              maxLength="3"
+              onChange={(e) => {
+                setCvc(e.target.value);
+              }}
+              value={cvc}
+              onFocus={(e) => setFocus(e.target.name)}
+              id="cvc"
+            />
+          </label>
+        </div>
       </form>
-      <Link to="/mycards">
-        <button onClick={handleNewCard}>Add card</button>
-      </Link>
-      
+      <div className="check-icon-container">
+        <Link to="/mycards" onClick={handleNewCard}>
+          <AiOutlineCheck className="check-icon" />
+        </Link>
+      </div>
     </div>
   );
 };
-
 
 export default AddNewCardPage;
