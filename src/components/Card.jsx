@@ -1,9 +1,20 @@
 import { IoIosAddCircle } from "react-icons/io";
+import { MdDeleteForever } from "react-icons/md";
 import Cards from "react-credit-cards";
-const Card = ({ name, number, expiry, cvc, focus }) => {
+import { useSelector } from "react-redux";
+
+const Card = ({number, expiry, cvc, focus }) => {
+  const { cardHolderName } = useSelector((state) => state.cards.activeCard);
   return (
     <>
-      <Cards name={name} number={number} expiry={expiry} cvc={cvc} focused={focus}/>
+      <Cards
+        name={cardHolderName}
+        number={number}
+        expiry={expiry}
+        cvc={cvc}
+        focused={focus}
+      />
+      <MdDeleteForever className="delete_icon" />
     </>
   );
 };

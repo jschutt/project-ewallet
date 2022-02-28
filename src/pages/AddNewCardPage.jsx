@@ -1,32 +1,38 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Cards from "react-credit-cards";
 import { addCard } from "../redux/CardSlice";
 import "react-credit-cards/es/styles-compiled.css";
 import { AiOutlineCheck } from "react-icons/ai";
+import { MdDeleteForever } from "react-icons/md";
 const AddNewCardPage = () => {
-  const [name, setName] = useState("");
+  //const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
   const [focus, setFocus] = useState("");
   const [active, setActive] = useState(false);
 
+  // get the fetch username state from the redux store
+  const { cardHolderName } = useSelector((state) => state.cards.activeCard);
+  const { cards } = useSelector((state) => state.cards);
   let dispatch = useDispatch();
 
   const handleNewCard = () => {
-    dispatch(
-      addCard({
-        cardName: name,
-        cardNumber: number,
-        expiry: expiry,
-        cvc: cvc,
-        type: "VISA",
-        active: false,
-        focus: focus,
-      })
-    );
+    if (cards.length < 3) {
+      dispatch(
+        addCard({
+          cardName: cardHolderName,
+          cardNumber: number,
+          expiry: expiry,
+          cvc: cvc,
+          type: "VISA",
+          active: false,
+          focus: focus,
+        })
+      );
+    }
   };
 
   // const handleOnChange = (e) => {
@@ -51,7 +57,7 @@ const AddNewCardPage = () => {
   return (
     <div>
       <Cards
-        name={name}
+        name={cardHolderName}
         number={number}
         expiry={expiry}
         cvc={cvc}
@@ -69,6 +75,8 @@ const AddNewCardPage = () => {
               onChange={(e) => {
                 setNumber(e.target.value);
               }}
+              placeholder="16 digits starts with either 2, 4  or 5"
+              maxLength={16}
               value={number}
               onFocus={(e) => setFocus(e.target.name)}
             />{" "}
@@ -80,10 +88,10 @@ const AddNewCardPage = () => {
               type="text"
               id="cardholder"
               name="name"
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              value={name}
+              // onChange={(e) => {
+              //   setName(e.target.value);
+              // }}
+              value={cardHolderName}
               onFocus={(e) => setFocus(e.target.name)}
             />
           </label>

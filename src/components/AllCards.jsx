@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Card from "./Card";
 import "../assets/styles/StyledAddCard.css";
+import { MdDeleteForever } from "react-icons/md";
 const AllCards = () => {
   // get the cardList state from the redux store so we can map through and put into the array
   const { cards } = useSelector((state) => state.cards);
