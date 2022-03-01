@@ -10,3 +10,8 @@ body {
   background-color: var(--primaryColor);
   color: var(--mainText);
 }
+
+a {
+  text-decoration: none;
+}
+

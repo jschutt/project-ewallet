@@ -14,13 +14,13 @@ const cardSlice = createSlice({
   name: "cards",
   initialState: {
     activeCard: {
+      id: Date.now(),
       cardHolderName: "Anna Peterson",
       cardNumber: "1234123412341234",
       expiry: "1122",
       cvc: "212",
       type: "VISA",
       active: true,
-      focus:''
     },
     cards: [],
     data: null,
@@ -34,9 +34,13 @@ const cardSlice = createSlice({
     updateCard: (state, { payload }) => {
       state.cards = payload;
     },
-    setFocus:(state, action) => {
-      state.focus=action.payload;
-    }
+    setActive: (state, { payload }) => {
+      const setActiveCard = state.activeCard.filter(
+        (card) => card.id !== payload.id
+      );
+      setActiveCard.splice(0, 0, payload);
+      return { ...state, activeCard: setActiveCard };
+    },
   },
   extraReducers: {
     [getRandomUser.pending]: ({ status }) => {
@@ -52,5 +56,5 @@ const cardSlice = createSlice({
     },
   },
 });
-export const { addCard, updateCard, setFocus } = cardSlice.actions;
+export const { addCard, updateCard, setActive } = cardSlice.actions;
 export default cardSlice.reducer;

@@ -5,18 +5,17 @@ import Cards from "react-credit-cards";
 import { addCard } from "../redux/CardSlice";
 import "react-credit-cards/es/styles-compiled.css";
 import { AiOutlineCheck } from "react-icons/ai";
-import { MdDeleteForever } from "react-icons/md";
 const AddNewCardPage = () => {
   //const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
   const [focus, setFocus] = useState("");
-  const [active, setActive] = useState(false);
 
   // get the fetch username state from the redux store
   const { cardHolderName } = useSelector((state) => state.cards.activeCard);
   const { cards } = useSelector((state) => state.cards);
+
   let dispatch = useDispatch();
 
   const handleNewCard = () => {
@@ -34,25 +33,6 @@ const AddNewCardPage = () => {
       );
     }
   };
-
-  // const handleOnChange = (e) => {
-  //   const nextCard = {
-  //     ...values,
-  //     [e.target.name]: e.target.value
-  //   };
-  //   setValues(nextCard);
-  // };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (card.cardData.length <= 3) {
-  //     dispatch(addCard(values));
-  //     setValues(cardData);
-  //     console.log(card.cardData);
-  //   } else {
-  //     alert("Max limit");
-  //   }
-  // };
 
   return (
     <div>

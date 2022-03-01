@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import Card from "../components/Card";
 import "react-credit-cards/es/styles-compiled.css";
 import { Link } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getRandomUser, setFocus } from "../redux/CardSlice";
+import { getRandomUser} from "../redux/CardSlice";
 import AllCards from "../components/AllCards";
-
+import "../assets/styles/StyledMyCards.css";
 const MyCardsPage = () => {
   const { cardHolderName, cardNumber, expiry, cvc, type, focus } = useSelector(
     (state) => state.cards.activeCard
@@ -22,7 +22,6 @@ const MyCardsPage = () => {
     dispatch(getRandomUser());
   }, []);
 
-  
   return (
     <div>
       <Link to={{ pathname: "/" }}></Link>
@@ -36,9 +35,9 @@ const MyCardsPage = () => {
         type={type}
       />
       <Link to={`/createcard`}>
-        <button >
+        <button>
           Add new card
-          <AiOutlinePlusCircle />
+          <AiOutlinePlusCircle className="icon"/>
         </button>
       </Link>
       <AllCards />

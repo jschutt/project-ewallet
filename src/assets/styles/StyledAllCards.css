@@ -1,0 +1,12 @@
+.other-cards {
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+    
+}
+.other-cards .trash-icon {
+    width: 5rem;
+    font-size: 1.5rem;
+   
+
+}
