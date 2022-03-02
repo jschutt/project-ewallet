@@ -41,6 +41,10 @@ const cardSlice = createSlice({
       setActiveCard.splice(0, 0, payload);
       return { ...state, activeCard: setActiveCard };
     },
+    deleteCard: (state,{payload}) =>{
+      let delCard =  state.cards.filter((card) => card.id !== payload);
+            return {...state , cards: delCard}
+    },
   },
   extraReducers: {
     [getRandomUser.pending]: ({ status }) => {
@@ -56,5 +60,5 @@ const cardSlice = createSlice({
     },
   },
 });
-export const { addCard, updateCard, setActive } = cardSlice.actions;
+export const { addCard, updateCard, setActive, deleteCard } = cardSlice.actions;
 export default cardSlice.reducer;
