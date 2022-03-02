@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
 import "../assets/styles/StyledAddCard.css";
-import { setActive } from "../redux/CardSlice";
+import { setActive, deleteCard } from "../redux/CardSlice";
 import { BsTrashFill } from "react-icons/bs";
 import '../assets/styles/StyledAllCards.css';
 const AllCards = () => {
@@ -44,7 +44,7 @@ const AllCards = () => {
                     cvc={card.cvc}
                   />
                 </div>
-                <button className="trash-icon">
+                <button onClick={()=> dispatch(deleteCard())} className="trash-icon">
                   <BsTrashFill />
                 </button>
               </div>

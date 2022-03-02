@@ -28,7 +28,7 @@ const MyCardsPage = () => {
 
       <Card
         name={cardHolderName}
-        number={cardNumber}
+        number={cardNumber}s
         expiry={expiry}
         cvc={cvc}
         focus={focus}
