@@ -1,23 +1,36 @@
-button {
+main {
     display: flex;
-    animation: center;
+    flex-direction: column;
     justify-content: center;
-    padding: 0.7rem;
-    border-radius: 2rem;
-    margin: 2rem auto;
-    width: 10rem;
-    background-color: var(--mainIcon);
-    color:var(--primaryColor);
-    font-weight: 800;
-    font-size: 0.9rem;
-    border: none;
-    cursor: pointer;
+    gap: 1rem;
 }
-button .icon {
-   margin-left: 0.5rem;
+.mycards-container {
+  display: flex;
+  max-width: 60%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+.add-icon {
+  font-size: 4.5rem !important;
+  color: var(--mainIcon) !important;
+  cursor: pointer;
+}
+.add-icon:hover {
+    opacity: 0.8;
+    transition: all 0.5s ease-out;
+
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1rem;
+}
+.header h2 {
+    font-size: 2.8rem;
+    margin: 0 1rem;
     
 }
-button:hover {
-    opacity: 0.8;
-    transition: 0.5 all ease-out;
-}
+
