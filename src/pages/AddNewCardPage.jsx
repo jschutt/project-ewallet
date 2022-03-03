@@ -1,115 +1,89 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Cards from "react-credit-cards";
 import { addCard } from "../redux/CardSlice";
-import "react-credit-cards/es/styles-compiled.css";
-import { AiOutlineCheck } from "react-icons/ai";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import Card from "../components/Card.jsx";
+import { Link } from "react-router-dom";
+import { IconButton } from "@material-ui/core";
+import "../assets/styles/StyledAddCard.css";
 const AddNewCardPage = () => {
-  //const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
+  //TODO: fixa focus
   const [focus, setFocus] = useState("");
 
   // get the fetch username state from the redux store
-  const { cardHolderName } = useSelector((state) => state.cards.activeCard);
   const { cards } = useSelector((state) => state.cards);
+  const { lastId } = useSelector((state) => state.cards);
 
-  let dispatch = useDispatch();
+  useEffect(() => {
+    cards.forEach((card) => {
+      if (card.active) {
+        setName(card.cardHolderName);
+      }
+    });
+  }, []);
+
+  const dispatch = useDispatch();
 
   const handleNewCard = () => {
-    if (cards.length < 3) {
-      dispatch(
-        addCard({
-          cardName: cardHolderName,
-          cardNumber: number,
-          expiry: expiry,
-          cvc: cvc,
-          type: "VISA",
-          active: false,
-          focus: focus,
-        })
-      );
-    }
+    dispatch(
+      addCard({
+        cardHolderName: name,
+        cardNumber: number,
+        expiry: expiry,
+        cvc: cvc,
+        active: false,
+        id: lastId + 1,
+      })
+    );
   };
 
   return (
     <div>
-      <Cards
-        name={cardHolderName}
-        number={number}
-        expiry={expiry}
-        cvc={cvc}
-        focused={focus}
-      />
+      <h2>Create New card</h2>
+      <Card name={name} number={number} expiry={expiry} cvc={cvc} />
       <form>
-        <div>
-          <label htmlFor="cardNumber">
-            Number:
-            <input
-              type="number"
-              name="number"
-              id="cardNumber"
-              maxLength="16"
-              onChange={(e) => {
-                setNumber(e.target.value);
-              }}
-              placeholder="16 digits starts with either 2, 4  or 5"
-              maxLength={16}
-              value={number}
-              onFocus={(e) => setFocus(e.target.name)}
-            />{" "}
-          </label>
-
-          <label htmlFor="cardholder">
-            Cardholders Name:
-            <input
-              type="text"
-              id="cardholder"
-              name="name"
-              // onChange={(e) => {
-              //   setName(e.target.value);
-              // }}
-              value={cardHolderName}
-              onFocus={(e) => setFocus(e.target.name)}
-            />
-          </label>
-
-          <label htmlFor="expirationDate">
-            Expiration date:
-            <input
-              type="number"
-              name="expiry"
-              onChange={(e) => {
-                setExpiry(e.target.value);
-              }}
-              value={expiry}
-              onFocus={(e) => setFocus(e.target.name)}
-              id="expirationDate"
-              placeholder="MM/YY"
-            />
-          </label>
-
-          <label htmlFor="cvc">
-            CCV:
-            <input
-              type="number"
-              name="cvc"
-              maxLength="3"
-              onChange={(e) => {
-                setCvc(e.target.value);
-              }}
-              value={cvc}
-              onFocus={(e) => setFocus(e.target.name)}
-              id="cvc"
-            />
-          </label>
-        </div>
+        {name.length === 0 ? (
+          <input
+            type="text"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            placeholder="Cardholder's name"
+          />
+        ) : (
+          <input type="text" id="cardholderName" value={name} disabled />
+        )}
+        <input
+          type="number"
+          onChange={(e) => {
+            setNumber(e.target.value);
+          }}
+          placeholder="Enter 16 digits starts with 2,3,4 or 5"
+        />
+        <input
+          type="number"
+          onChange={(e) => {
+            setExpiry(e.target.value);
+          }}
+          placeholder="Valid thru"
+        />
+        <input
+          type="number"
+          onChange={(e) => {
+            setCvc(e.target.value);
+          }}
+          placeholder="CVC"
+        />
       </form>
-      <div className="check-icon-container">
-        <Link to="/mycards" onClick={handleNewCard}>
-          <AiOutlineCheck className="check-icon" />
+      <div className="icon-container">
+        <Link to="/mycards">
+          <IconButton>
+            <CheckCircleIcon onClick={handleNewCard} className="icon" />
+          </IconButton>
         </Link>
       </div>
     </div>

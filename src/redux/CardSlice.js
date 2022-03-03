@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+// create async thunk 
 export const getRandomUser = createAsyncThunk(
   "cards/getRandomUser",
   async () => {
@@ -9,49 +9,55 @@ export const getRandomUser = createAsyncThunk(
     return data.results[0];
   }
 );
-
+// definera slice with initial states and necessary actions
 const cardSlice = createSlice({
   name: "cards",
   initialState: {
-    activeCard: {
-      id: Date.now(),
-      cardHolderName: "Anna Peterson",
-      cardNumber: "1234123412341234",
-      expiry: "1122",
-      cvc: "212",
-      type: "VISA",
-      active: true,
-    },
-    cards: [],
-    data: null,
+    cards: [
+      {
+        id: 1,
+        cardHolderName: "",
+        cardNumber: "3434123412341234",
+        expiry: "1122",
+        cvc: "212",
+        type: "VISA",
+        active: true,
+        focus:''
+      },
+    ],
+    lastId: 1,
     status: null,
   },
   reducers: {
     // definera actions
-    addCard: (state, action) => {
-      state.cards = state.cards.concat(action.payload);
-    },
-    updateCard: (state, { payload }) => {
-      state.cards = payload;
+    addCard: (state, { payload }) => {
+      if (state.cards.length === 4) {
+        alert("You can not create new card.Remove one please first");
+      } else {
+        state.cards = state.cards.concat(payload);
+        state.lastId += 1;
+      }
     },
     setActive: (state, { payload }) => {
-      const setActiveCard = state.activeCard.filter(
-        (card) => card.id !== payload.id
-      );
-      setActiveCard.splice(0, 0, payload);
-      return { ...state, activeCard: setActiveCard };
+      state.cards.forEach((card) => {
+        card.active = false;
+      });
+      state.cards = state.cards.filter((card) => card.id !== payload.id);
+      state.cards.push(payload);
     },
-    deleteCard: (state,{payload}) =>{
-      let delCard =  state.cards.filter((card) => card.id !== payload);
-            return {...state , cards: delCard}
+    deleteCard: (state, { payload }) => {
+      let delCard = state.cards.filter((card) => card.id !== payload);
+      return { ...state, cards: delCard };
     },
   },
   extraReducers: {
     [getRandomUser.pending]: ({ status }) => {
       status = "Loading...";
     },
-    [getRandomUser.fulfilled]: (state, action) => {
-      state.activeCard.cardHolderName = `${action.payload.name.first} ${action.payload.name.last}`;
+    [getRandomUser.fulfilled]: (state, { payload }) => {
+      state.cards.forEach((card) => {
+        card.cardHolderName = `${payload.name.first} ${payload.name.last}`;
+      });
       state.status = "Data has fetched successfully!";
       console.log(state.status);
     },
@@ -60,5 +66,5 @@ const cardSlice = createSlice({
     },
   },
 });
-export const { addCard, updateCard, setActive, deleteCard } = cardSlice.actions;
+export const { addCard, setActive, deleteCard } = cardSlice.actions;
 export default cardSlice.reducer;

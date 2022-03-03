@@ -1,17 +1,15 @@
-
 import Cards from "react-credit-cards";
-import { useSelector } from "react-redux";
 import "../assets/styles/StyledCard.css";
-const Card = ({ number, expiry, cvc, focus }) => {
-  const { cardHolderName } = useSelector((state) => state.cards.activeCard);
+const Card = ({ name, number, expiry, cvc, focus }) => {
   return (
     <div className="card-container">
       <Cards
-        name={cardHolderName}
+        name={name}
         number={number}
         expiry={expiry}
         cvc={cvc}
         focused={focus}
+       
       />
     </div>
   );

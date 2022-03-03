@@ -1,47 +1,54 @@
-import React, { useEffect} from "react";
-import Card from "../components/Card";
+import React, { useEffect } from "react";
 import "react-credit-cards/es/styles-compiled.css";
 import { Link } from "react-router-dom";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getRandomUser} from "../redux/CardSlice";
+import { getRandomUser } from "../redux/CardSlice";
 import AllCards from "../components/AllCards";
 import "../assets/styles/StyledMyCards.css";
+import ActiveCard from "../components/ActiveCard";
+import user from "../pictures/profilpicture.png";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { IconButton } from "@material-ui/core";
+
 const MyCardsPage = () => {
-  const { cardHolderName, cardNumber, expiry, cvc, type, focus } = useSelector(
-    (state) => state.cards.activeCard
-  );
-  //console.log(cardNumber);  // kontrolutskrift
+  const { cards } = useSelector((state) => state.cards);
+  //console.log(cards.cardHolderName);  // kontrolutskrift
 
   // dispatch the fetch
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // fetch data with useEffect hook
   useEffect(() => {
-    dispatch(getRandomUser());
+    cards.forEach((card) => {
+      if (card.active && card.cardHolderName.length === 0) {
+        dispatch(getRandomUser());
+      }
+    });
   }, []);
 
   return (
-    <div>
-      <Link to={{ pathname: "/" }}></Link>
-
-      <Card
-        name={cardHolderName}
-        number={cardNumber}s
-        expiry={expiry}
-        cvc={cvc}
-        focus={focus}
-        type={type}
-      />
-      <Link to={`/createcard`}>
-        <button>
-          Add new card
-          <AiOutlinePlusCircle className="icon"/>
-        </button>
-      </Link>
+    <main>
+      <div>
+        <Link to={{ pathname: "/" }}></Link>
+        <div className="avatar">
+          <img
+            src={user}
+            alt="user-profil image"
+            className="profil-picture"
+          />
+          {/* TODO: DYNAMIC USERNAME */}
+          <span>Välkommen Lars</span>
+        </div>
+        <Link to={`/createcard`}>
+          <IconButton>
+            <AddCircleIcon className="icon" />
+          </IconButton>
+        </Link>
+      </div>
+      <ActiveCard />
       <AllCards />
-    </div>
+    </main>
   );
 };
 

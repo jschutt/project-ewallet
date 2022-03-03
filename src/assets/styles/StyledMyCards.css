@@ -1,36 +1,29 @@
 main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-}
-.mycards-container {
   display: flex;
-  max-width: 60%;
-  margin: 0 auto;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 1rem;
 }
-.add-icon {
+.avatar {
+  display: flex;
+  justify-content: flex-end;
+  z-index: 3;
+  margin-top: -10px;
+  font-size: 1rem;
+}
+.profil-picture {
+  width: 100px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.icon {
   font-size: 4.5rem !important;
   color: var(--mainIcon) !important;
   cursor: pointer;
+  margin-left: 4rem;
 }
-.add-icon:hover {
-    opacity: 0.8;
-    transition: all 0.5s ease-out;
-
+.icon:hover {
+  color: chartreuse !important;
+  transition: all 0.5s ease-out;
 }
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin: 1rem;
-}
-.header h2 {
-    font-size: 2.8rem;
-    margin: 0 1rem;
-    
-}
-
