@@ -6,14 +6,13 @@ import { setActive, deleteCard } from "../redux/CardSlice";
 import { BsTrashFill } from "react-icons/bs";
 import '../assets/styles/StyledAllCards.css';
 const AllCards = () => {
-  // get the cardList state from the redux store so we can map through and put into the array
+  // get the List of cards from the redux store so we can map through and put into the array
   const { cards } = useSelector((state) => state.cards);
   let dispatch = useDispatch();
   return (
     <div>
       <div>
-        <h3>My active card</h3>
-        {cards.slice(0, 0).map((card, i) => {
+        {cards.slice(0, 1).map((card, i) => {
           return (
             <div key={i}>
               <Card
@@ -50,6 +49,7 @@ const AllCards = () => {
               </div>
             ))}
       </div>
+      
     </div>
   );
 };
