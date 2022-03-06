@@ -4,6 +4,7 @@ import { addCard } from "../redux/CardSlice";
 import Card from "../components/Card.jsx";
 import { useHistory } from "react-router-dom";
 import "../assets/styles/StyledAddCard.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const AddNewCardPage = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
@@ -25,7 +26,7 @@ const AddNewCardPage = () => {
   }, []);
 
   const dispatch = useDispatch();
-  const history = useHistory();
+const history =useHistory();
   const handleNewCard = () => {
     dispatch(
       addCard({
@@ -62,6 +63,7 @@ const AddNewCardPage = () => {
             setNumber(e.target.value);
           }}
           placeholder="Enter 16 digits starts with 2,3,4 or 5"
+    
         />
         <input
           type="number"
