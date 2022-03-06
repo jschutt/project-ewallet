@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCard } from "../redux/CardSlice";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Card from "../components/Card.jsx";
-import { Link } from "react-router-dom";
-import { IconButton } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import "../assets/styles/StyledAddCard.css";
 const AddNewCardPage = () => {
   const [name, setName] = useState("");
@@ -27,7 +25,7 @@ const AddNewCardPage = () => {
   }, []);
 
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const handleNewCard = () => {
     dispatch(
       addCard({
@@ -39,6 +37,7 @@ const AddNewCardPage = () => {
         id: lastId + 1,
       })
     );
+    history.push("/mycards");
   };
 
   return (
@@ -79,12 +78,10 @@ const AddNewCardPage = () => {
           placeholder="CVC"
         />
       </form>
-      <div className="icon-container">
-        <Link to="/mycards">
-          <IconButton>
-            <CheckCircleIcon onClick={handleNewCard} className="icon" />
-          </IconButton>
-        </Link>
+      <div className="btn-container">
+        <button onClick={handleNewCard} className="btn">
+          Submit
+        </button>
       </div>
     </div>
   );

@@ -14,13 +14,6 @@ input[type="number"] {
   box-shadow: 1px 2px black;
   box-sizing: border-box;
 }
-
-.icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
 .icon {
   font-size: 4.5rem !important;
   color: var(--mainIcon) !important;
@@ -30,4 +23,22 @@ input[type="number"] {
 .icon:hover {
   color: chartreuse !important;
   transition: all 0.5s ease-out;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.btn {
+  padding: 0.8rem 3rem;
+  border-radius: 10px;
+  background-color: var(--mainIcon);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.btn:hover {
+  background-color: chartreuse;
+  transition:all 0.5s ease-out;
 }
