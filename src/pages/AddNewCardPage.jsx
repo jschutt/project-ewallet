@@ -49,7 +49,7 @@ const AddNewCardPage = () => {
         cvc={cvc}
         focused={focus}
       />
-      <form onSubmit={handleSubmit}>
+      <form>
         <div>
           <label htmlFor="cardNumber">
             Number:
@@ -130,7 +130,8 @@ const AddNewCardPage = () => {
           </label>
         </div>
         <div className="check-icon-container">
-        <button type="submit" onClick={handleNewCard}><AiOutlineCheck className="check-icon"/></button>
+       
+        <button onClick={handleNewCard}><AiOutlineCheck className="check-icon"/> <Link to="/mycards"></Link></button>
         </div>
       </form>
     </div>
