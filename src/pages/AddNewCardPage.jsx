@@ -6,6 +6,7 @@ import Card from "../components/Card.jsx";
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 import "../assets/styles/StyledAddCard.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const AddNewCardPage = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
@@ -27,7 +28,7 @@ const AddNewCardPage = () => {
   }, []);
 
   const dispatch = useDispatch();
-
+const history =useHistory();
   const handleNewCard = () => {
     dispatch(
       addCard({
@@ -39,6 +40,7 @@ const AddNewCardPage = () => {
         id: lastId + 1,
       })
     );
+    history.push('/mycards');
   };
 
   return (
@@ -63,6 +65,7 @@ const AddNewCardPage = () => {
             setNumber(e.target.value);
           }}
           placeholder="Enter 16 digits starts with 2,3,4 or 5"
+    
         />
         <input
           type="number"
@@ -80,11 +83,9 @@ const AddNewCardPage = () => {
         />
       </form>
       <div className="icon-container">
-        <Link to="/mycards">
-          <IconButton>
+          <buttton>
             <CheckCircleIcon onClick={handleNewCard} className="icon" />
-          </IconButton>
-        </Link>
+          </buttton>
       </div>
     </div>
   );
