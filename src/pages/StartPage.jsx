@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const StartPage = () => {
   return (
-    <>
     <section>
       <p><GiWallet className='wallet-icon'/> E-wallet</p>
       <header>
@@ -18,11 +17,12 @@ const StartPage = () => {
     <Link to={
       {pathname:"/mycards"}
       }
+     
       >  
-    <BsFillArrowRightCircleFill className='arrow-icon icon'/> 
+    <BsFillArrowRightCircleFill className='icon'/> 
     </Link>
       </section>
-      </>
+      
   )
 }
 

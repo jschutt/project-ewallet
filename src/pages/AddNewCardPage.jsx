@@ -4,7 +4,6 @@ import { addCard } from "../redux/CardSlice";
 import Card from "../components/Card.jsx";
 import { useHistory } from "react-router-dom";
 import "../assets/styles/StyledAddCard.css";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const AddNewCardPage = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
@@ -15,6 +14,7 @@ const AddNewCardPage = () => {
 
   // get the fetch username state from the redux store
   const { cards } = useSelector((state) => state.cards);
+
   const { lastId } = useSelector((state) => state.cards);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const AddNewCardPage = () => {
   }, []);
 
   const dispatch = useDispatch();
-const history =useHistory();
+  const history = useHistory();
   const handleNewCard = () => {
     dispatch(
       addCard({
@@ -36,6 +36,7 @@ const history =useHistory();
         cvc: cvc,
         active: false,
         id: lastId + 1,
+        focus: focus,
       })
     );
     history.push("/mycards");
@@ -52,6 +53,8 @@ const history =useHistory();
             onChange={(e) => {
               setName(e.target.value);
             }}
+            value={name}
+            onFocus={(e) => setFocus(e.target.name)}
             placeholder="Cardholder's name"
           />
         ) : (
@@ -62,14 +65,18 @@ const history =useHistory();
           onChange={(e) => {
             setNumber(e.target.value);
           }}
+          onFocus={(e) => setFocus(e.target.name)}
+          value={number}
+          required
           placeholder="Enter 16 digits starts with 2,3,4 or 5"
-    
         />
         <input
           type="number"
           onChange={(e) => {
             setExpiry(e.target.value);
           }}
+          onFocus={(e) => setFocus(e.target.name)}
+          value={expiry}
           placeholder="Valid thru"
         />
         <input
@@ -77,6 +84,8 @@ const history =useHistory();
           onChange={(e) => {
             setCvc(e.target.value);
           }}
+          onFocus={(e) => setFocus(e.target.name)}
+          value={cvc}
           placeholder="CVC"
         />
       </form>

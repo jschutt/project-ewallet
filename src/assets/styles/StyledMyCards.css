@@ -4,11 +4,14 @@ main {
   justify-content: center;
   gap: 1rem;
 }
+.icon {
+  width: 400px;
+}
 .avatar {
   display: flex;
   justify-content: flex-end;
   z-index: 3;
-  margin-top: -10px;
+  margin-top: 70px;
   font-size: 1rem;
 }
 .profil-picture {

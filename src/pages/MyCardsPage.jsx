@@ -30,7 +30,9 @@ const MyCardsPage = () => {
   return (
     <main>
       <div>
-        <Link to={{ pathname: "/" }}></Link>
+      <div className="icon">
+      <Link to={{ pathname: "/" }} ></Link>
+      </div>
         <div className="avatar">
           <img
             src={user}

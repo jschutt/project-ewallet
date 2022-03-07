@@ -23,30 +23,38 @@ const AllCards = () => {
         cvc: person.cvc,
         active: true,
         id: person.id,
+        focus: person.focus,
       })
     );
   };
   return (
     <div>
       <hr />
-      <div >
+      <div>
         <h1>Other cards</h1>
         {cards.map(
           (card, i) =>
             !card.active && (
-              <div key={i} >
+              <div key={i}>
                 <Card
                   name={card.cardHolderName}
                   number={card.cardNumber}
                   expiry={card.expiry}
                   cvc={card.cvc}
+                  focus={card.focus}
                 />
                 <div className="btns">
                   <IconButton>
-                    <LockOpenIcon onClick={() => handleActiveCard(card)} className="icon"/>
+                    <LockOpenIcon
+                      onClick={() => handleActiveCard(card)}
+                      className="icon"
+                    />
                   </IconButton>
                   <IconButton>
-                    <DeleteForeverIcon onClick={() => handleDelete(card.id)} className="icon"/>
+                    <DeleteForeverIcon
+                      onClick={() => handleDelete(card.id)}
+                      className="icon"
+                    />
                   </IconButton>
                 </div>
               </div>
