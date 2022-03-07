@@ -27,6 +27,10 @@ const AddNewCardPage = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const switchPage = () => {
+    history.push("/mycards");
+  };
+
   const handleNewCard = () => {
     dispatch(
       addCard({
@@ -39,62 +43,84 @@ const AddNewCardPage = () => {
         focus: focus,
       })
     );
-    history.push("/mycards");
+    switchPage()
+  };
+  
+  const handleChangeState = (e, myState) => {
+    myState(e.target.value);
+  };
+  const handleOnInput = (e, num) => {
+    e.target.value = e.target.value.slice(0, num);
   };
 
   return (
-    <div>
-      <h2>Create New card</h2>
-      <Card name={name} number={number} expiry={expiry} cvc={cvc} />
+    <>
+      <Card
+        name={name}
+        number={number}
+        expiry={expiry}
+        cvc={cvc}
+        focused={focus}
+      />
       <form>
-        {name.length === 0 ? (
-          <input
-            type="text"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            value={name}
-            onFocus={(e) => setFocus(e.target.name)}
-            placeholder="Cardholder's name"
-          />
-        ) : (
-          <input type="text" id="cardholderName" value={name} disabled />
-        )}
+        <label htmlFor="name">Cardholder's name:
         <input
-          type="number"
+          type="text"
+          name="name"
+          id="cardholderName"
+          placeholder="Cardholder's name"
+          value={name}
           onChange={(e) => {
-            setNumber(e.target.value);
+            setName(e.target.value);
           }}
-          onFocus={(e) => setFocus(e.target.name)}
-          value={number}
+          readOnly
           required
+        />
+        </label>
+          <label htmlFor="number">Card number:
+        <input
+          type="number"
+          name="number"
+          id="cardNumber"
+          onChange={(e) => handleChangeState(e, setNumber)}
+          onInput={(e) => handleOnInput(e, 16)}
           placeholder="Enter 16 digits starts with 2,3,4 or 5"
-        />
+          required
+        /></label>
+<label htmlFor="expiry">Expiry:
         <input
           type="number"
-          onChange={(e) => {
-            setExpiry(e.target.value);
-          }}
-          onFocus={(e) => setFocus(e.target.name)}
-          value={expiry}
-          placeholder="Valid thru"
-        />
+          name="expiry"
+          id="expiry"
+          onChange={(e) => handleChangeState(e, setExpiry)}
+          onInput={(e) => handleOnInput(e, 4)}
+          placeholder="MM/YY"
+          required
+        /></label>
+        <label htmlFor="cvc"> CVC:
         <input
           type="number"
-          onChange={(e) => {
-            setCvc(e.target.value);
-          }}
-          onFocus={(e) => setFocus(e.target.name)}
-          value={cvc}
+          name="cvc"
+          onChange={(e) => handleChangeState(e, setCvc)}
+          onInput={(e) => handleOnInput(e, 3)}
           placeholder="CVC"
-        />
+          required
+        /></label>
       </form>
       <div className="btn-container">
-        <button onClick={handleNewCard} className="btn">
-          Submit
+        <button
+          className="btn"
+          onClick={handleNewCard}
+          disabled={
+            number.length === 16 && expiry.length === 4 && cvc.length === 3
+              ? false
+              : true
+          }
+        >
+          Add card
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
