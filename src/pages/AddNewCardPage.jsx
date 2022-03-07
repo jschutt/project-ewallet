@@ -9,7 +9,6 @@ const AddNewCardPage = () => {
   const [number, setNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
-  //TODO: fixa focus
   const [focus, setFocus] = useState("");
 
   // get the fetch username state from the redux store
@@ -43,9 +42,9 @@ const AddNewCardPage = () => {
         focus: focus,
       })
     );
-    switchPage()
+    switchPage();
   };
-  
+
   const handleChangeState = (e, myState) => {
     myState(e.target.value);
   };
@@ -60,52 +59,64 @@ const AddNewCardPage = () => {
         number={number}
         expiry={expiry}
         cvc={cvc}
-        focused={focus}
+        focus={focus}
       />
       <form>
-        <label htmlFor="name">Cardholder's name:
-        <input
-          type="text"
-          name="name"
-          id="cardholderName"
-          placeholder="Cardholder's name"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-          readOnly
-          required
-        />
+        <label htmlFor="name">
+          Cardholder's name:
+          <input
+            type="text"
+            name="name"
+            id="cardholderName"
+            placeholder="Cardholder's name"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            onFocus={(e) => setFocus(e.target.name)}
+            readOnly
+            required
+          />
         </label>
-          <label htmlFor="number">Card number:
-        <input
-          type="number"
-          name="number"
-          id="cardNumber"
-          onChange={(e) => handleChangeState(e, setNumber)}
-          onInput={(e) => handleOnInput(e, 16)}
-          placeholder="Enter 16 digits starts with 2,3,4 or 5"
-          required
-        /></label>
-<label htmlFor="expiry">Expiry:
-        <input
-          type="number"
-          name="expiry"
-          id="expiry"
-          onChange={(e) => handleChangeState(e, setExpiry)}
-          onInput={(e) => handleOnInput(e, 4)}
-          placeholder="MM/YY"
-          required
-        /></label>
-        <label htmlFor="cvc"> CVC:
-        <input
-          type="number"
-          name="cvc"
-          onChange={(e) => handleChangeState(e, setCvc)}
-          onInput={(e) => handleOnInput(e, 3)}
-          placeholder="CVC"
-          required
-        /></label>
+        <label htmlFor="number">
+          Card number:
+          <input
+            type="number"
+            name="number"
+            id="cardNumber"
+            onChange={(e) => handleChangeState(e, setNumber)}
+            onInput={(e) => handleOnInput(e, 16)}
+            onFocus={(e) => setFocus(e.target.name)}
+            placeholder="Enter 16 digits starts with 2,3,4 or 5"
+            required
+          />
+        </label>
+        <label htmlFor="expiry">
+          Expiry:
+          <input
+            type="number"
+            name="expiry"
+            id="expiry"
+            onChange={(e) => handleChangeState(e, setExpiry)}
+            onInput={(e) => handleOnInput(e, 4)}
+            onFocus={(e) => setFocus(e.target.name)}
+            placeholder="MM/YY"
+            required
+          />
+        </label>
+        <label htmlFor="cvc">
+          {" "}
+          CVC:
+          <input
+            type="number"
+            name="cvc"
+            onChange={(e) => handleChangeState(e, setCvc)}
+            onInput={(e) => handleOnInput(e, 3)}
+            onFocus={(e) => setFocus(e.target.name)}
+            placeholder="CVC"
+            required
+          />
+        </label>
       </form>
       <div className="btn-container">
         <button

@@ -10,7 +10,7 @@ import ActiveCard from "../components/ActiveCard";
 import user from "../pictures/profilpicture.png";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { IconButton } from "@material-ui/core";
-
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 const MyCardsPage = () => {
   const { cards } = useSelector((state) => state.cards);
   //console.log(cards.cardHolderName);  // kontrolutskrift
@@ -30,15 +30,12 @@ const MyCardsPage = () => {
   return (
     <main>
       <div>
-      <div className="icon">
-      <Link to={{ pathname: "/" }} ></Link>
-      </div>
+        <Link to="/" className="icon">
+          <BsFillArrowLeftCircleFill />
+        </Link>
+
         <div className="avatar">
-          <img
-            src={user}
-            alt="user-profil image"
-            className="profil-picture"
-          />
+          <img src={user} alt="user-profil image" className="profil-picture" />
           {/* TODO: DYNAMIC USERNAME */}
           <span>Välkommen Lars</span>
         </div>
