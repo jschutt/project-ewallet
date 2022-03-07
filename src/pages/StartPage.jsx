@@ -19,7 +19,7 @@ const StartPage = () => {
       {pathname:"/mycards"}
       }
       >  
-    <BsFillArrowRightCircleFill className='arrow-icon'/> 
+    <BsFillArrowRightCircleFill className='arrow-icon icon'/> 
     </Link>
       </section>
       </>
