@@ -11,6 +11,7 @@ import user from "../pictures/profilpicture.png";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { IconButton } from "@material-ui/core";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+
 const MyCardsPage = () => {
   const { cards } = useSelector((state) => state.cards);
   //console.log(cards.cardHolderName);  // kontrolutskrift

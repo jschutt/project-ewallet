@@ -91,19 +91,6 @@ const AddNewCardPage = () => {
             required
           />
         </label>
-        <label htmlFor="expiry">
-          Expiry:
-          <input
-            type="number"
-            name="expiry"
-            id="expiry"
-            onChange={(e) => handleChangeState(e, setExpiry)}
-            onInput={(e) => handleOnInput(e, 4)}
-            onFocus={(e) => setFocus(e.target.name)}
-            placeholder="MM/YY"
-            required
-          />
-        </label>
         <label htmlFor="cvc">
           {" "}
           CVC:
@@ -117,6 +104,20 @@ const AddNewCardPage = () => {
             required
           />
         </label>
+        <label htmlFor="expiry">
+          Expiry:
+          <input
+            type="number"
+            name="expiry"
+            id="expiry"
+            onChange={(e) => handleChangeState(e, setExpiry)}
+            onInput={(e) => handleOnInput(e, 4)}
+            onFocus={(e) => setFocus(e.target.name)}
+            placeholder="MM/YY"
+            required
+          />
+        </label>
+  
       </form>
       <div className="btn-container">
         <button
