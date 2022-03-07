@@ -4,7 +4,7 @@ import { addCard } from "../redux/CardSlice";
 import Card from "../components/Card.jsx";
 import { useHistory } from "react-router-dom";
 import "../assets/styles/StyledAddCard.css";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 const AddNewCardPage = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
@@ -26,7 +26,11 @@ const AddNewCardPage = () => {
   }, []);
 
   const dispatch = useDispatch();
-const history =useHistory();
+  const history = useHistory();
+  const switchPage = () => {
+    history.push("/mycards");
+  };
+
   const handleNewCard = () => {
     dispatch(
       addCard({
@@ -38,54 +42,84 @@ const history =useHistory();
         id: lastId + 1,
       })
     );
-    history.push("/mycards");
+    switchPage()
+  };
+  
+  const handleChangeState = (e, myState) => {
+    myState(e.target.value);
+  };
+  const handleOnInput = (e, num) => {
+    e.target.value = e.target.value.slice(0, num);
   };
 
   return (
-    <div>
-      <h2>Create New card</h2>
-      <Card name={name} number={number} expiry={expiry} cvc={cvc} />
+    <>
+      <Card
+        name={name}
+        number={number}
+        expiry={expiry}
+        cvc={cvc}
+        focused={focus}
+      />
       <form>
-        {name.length === 0 ? (
-          <input
-            type="text"
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            placeholder="Cardholder's name"
-          />
-        ) : (
-          <input type="text" id="cardholderName" value={name} disabled />
-        )}
+        <label htmlFor="name">Cardholder's name:
+        <input
+          type="text"
+          name="name"
+          id="cardholderName"
+          placeholder="Cardholder's name"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          readOnly
+          required
+        />
+        </label>
+          <label htmlFor="number">Card number:
         <input
           type="number"
-          onChange={(e) => {
-            setNumber(e.target.value);
-          }}
+          name="number"
+          id="cardNumber"
+          onChange={(e) => handleChangeState(e, setNumber)}
+          onInput={(e) => handleOnInput(e, 16)}
           placeholder="Enter 16 digits starts with 2,3,4 or 5"
-    
-        />
+          required
+        /></label>
+<label htmlFor="expiry">Expiry:
         <input
           type="number"
-          onChange={(e) => {
-            setExpiry(e.target.value);
-          }}
-          placeholder="Valid thru"
-        />
+          name="expiry"
+          id="expiry"
+          onChange={(e) => handleChangeState(e, setExpiry)}
+          onInput={(e) => handleOnInput(e, 4)}
+          placeholder="MM/YY"
+          required
+        /></label>
+        <label htmlFor="cvc"> CVC:
         <input
           type="number"
-          onChange={(e) => {
-            setCvc(e.target.value);
-          }}
+          name="cvc"
+          onChange={(e) => handleChangeState(e, setCvc)}
+          onInput={(e) => handleOnInput(e, 3)}
           placeholder="CVC"
-        />
+          required
+        /></label>
       </form>
       <div className="btn-container">
-        <button onClick={handleNewCard} className="btn">
-          Submit
+        <button
+          className="btn"
+          onClick={handleNewCard}
+          disabled={
+            number.length === 16 && expiry.length === 4 && cvc.length === 3
+              ? false
+              : true
+          }
+        >
+          Add card
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
