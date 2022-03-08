@@ -13,7 +13,6 @@ const AddNewCardPage = () => {
 
   // get the fetch username state from the redux store
   const { cards } = useSelector((state) => state.cards);
-
   const { lastId } = useSelector((state) => state.cards);
 
   useEffect(() => {
@@ -60,6 +59,7 @@ const AddNewCardPage = () => {
         expiry={expiry}
         cvc={cvc}
         focus={focus}
+        
       />
       <form>
         <label htmlFor="name">

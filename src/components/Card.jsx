@@ -9,7 +9,6 @@ const Card = ({ name, number, expiry, cvc, focus }) => {
         expiry={expiry}
         cvc={cvc}
         focused={focus}
-       
       />
     </div>
   );
